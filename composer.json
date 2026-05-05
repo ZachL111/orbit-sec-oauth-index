@@ -1,0 +1,10 @@
+{
+  "name": "zachl111/orbit-sec-oauth-index",
+  "description": "Implement a PHP security tooling project for oauth incremental indexing, using append-only fixtures and checkpoint recovery checks.",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Portfolio\\": "src/"
+    }
+  }
+}
