@@ -1,68 +1,40 @@
 # orbit-sec-oauth-index
 
-`orbit-sec-oauth-index` explores security tooling in PHP. The repository keeps the core rule set compact, then surrounds it with examples that show how the decisions move.
+`orbit-sec-oauth-index` is a PHP project in security tooling. Its focus is to implement a PHP security tooling project for oauth incremental indexing, using append-only fixtures and checkpoint recovery checks.
 
-## Orbit Sec Oauth Index Notes
+## Purpose
 
-The quickest review path is the verifier first, then the fixtures, then the operations note. That order makes it easy to see whether the code, data, and explanation still agree.
+The point is to make a small domain rule concrete enough that a reader can change it and immediately see what broke.
+
+## Orbit Sec Oauth Index Review Notes
+
+Start with `replay exposure` and `trust boundary`. Those cases create the widest score spread in this repo, so they are the best quick check when the model changes.
+
+## What Is Covered
+
+- `fixtures/domain_review.csv` adds cases for trust boundary and claim drift.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/orbit-sec-oauth-walkthrough.md` walks through the case spread.
+- The PHP code includes a review path for `replay exposure` and `trust boundary`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
 ## Implementation Notes
 
-The interesting part is the boundary between accepted and reviewed scenarios. Extended examples sit near that boundary so future edits can show whether the model became more permissive or more cautious. The PHP implementation uses strict types and a small namespaced policy class.
+The fixture data drives the tests. The code stays thin, while `metadata/domain-review.json` and `config/review-profile.json` explain what each case is meant to protect.
 
-## Why This Exists
+The added PHP path is deliberately direct, with fixtures doing most of the explaining.
 
-The repository exists to keep a technical idea small enough to reason about. The implementation avoids external dependencies where possible, then uses fixtures to make changes easy to review.
-
-## Feature Notes
-
-- Uses fixture data to keep policy checks changes visible in code review.
-- Includes extended examples for replay guards, including `surge` and `degraded`.
-- Documents claim validation tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
-
-## Example Scenarios
-
-The extended cases are not random smoke tests. `degraded` keeps pressure on the review path, while `surge` shows the model when capacity and weight are strong enough to clear the threshold.
-
-## Code Tour
-
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Local Setup
-
-The only required setup is the local PHP toolchain. After cloning, stay in the repo root so fixture paths resolve correctly.
-
-## Try It
+## Command
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Audit Path
 
-## Tests
+That command is also the regression path. It verifies the domain cases and catches mismatches between the CSV, metadata, and code.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Limits
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Boundaries
-
-The fixture set is deliberately small. That keeps the review surface clear, but it also means the model should not be treated as a complete domain simulator.
-
-## Roadmap
-
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Split the scoring constants into a typed configuration object and validate it before use.
-- Add a comparison mode that shows how decisions change when one signal is adjusted.
-- Add one more security tooling fixture that focuses on a malformed or borderline input.
+This remains a local project with deterministic fixtures. It does not depend on credentials, hosted services, or live data. Future work should add richer malformed inputs before widening the public API.

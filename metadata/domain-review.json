@@ -1,0 +1,73 @@
+{
+  "repo": "orbit-sec-oauth-index",
+  "language": "PHP",
+  "category": "Security tooling",
+  "goal": "Implement a PHP security tooling project for oauth incremental indexing, using append-only fixtures and checkpoint recovery checks.",
+  "review_model": {
+    "terms": [
+      "trust boundary",
+      "claim drift",
+      "replay exposure",
+      "policy width"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "trust boundary",
+      "signal": 41,
+      "slack": 35,
+      "drag": 16,
+      "confidence": 74,
+      "score": 143,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "claim drift",
+      "signal": 58,
+      "slack": 29,
+      "drag": 16,
+      "confidence": 52,
+      "score": 149,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "replay exposure",
+      "signal": 78,
+      "slack": 35,
+      "drag": 9,
+      "confidence": 46,
+      "score": 210,
+      "lane": "ship"
+    },
+    {
+      "name": "recovery",
+      "focus": "policy width",
+      "signal": 78,
+      "slack": 40,
+      "drag": 23,
+      "confidence": 70,
+      "score": 197,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "trust boundary",
+      "signal": 60,
+      "slack": 40,
+      "drag": 20,
+      "confidence": 76,
+      "score": 176,
+      "lane": "ship"
+    }
+  ]
+}
