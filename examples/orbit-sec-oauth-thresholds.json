@@ -1,0 +1,17 @@
+{
+  "repo": "orbit-sec-oauth-index",
+  "thresholds": {
+    "signal": 3,
+    "slack": 1,
+    "confidence": 1,
+    "drag": 2,
+    "ship": 196,
+    "watch": 98
+  },
+  "terms": [
+    "trust boundary",
+    "claim drift",
+    "replay exposure",
+    "policy width"
+  ]
+}
